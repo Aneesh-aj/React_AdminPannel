@@ -8,6 +8,7 @@ import {
 import { verifyToken, verifyAdmin } from "../utils/verifyUser.js";
 
 const router = express.Router();
+console.log('in the admin route')
 
 router.get("/users",  userList);
 router.post("/makeadmin/:id",  makeAdmin);

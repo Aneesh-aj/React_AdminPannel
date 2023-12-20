@@ -11,7 +11,7 @@ function Header() {
           <h1 className="font-bold">Auth app</h1>
         </Link>
         <ul className="flex gap-4">
-          <Link to="/">
+          <Link to="/"> 
             <li>Home</li>
           </Link>
           {currentUser ? (

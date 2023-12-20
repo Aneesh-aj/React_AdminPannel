@@ -103,7 +103,8 @@ function Profile() {
   const handleSignOut = async () => {
     try {
       await fetch("http://localhost:3000/api/auth/signout",{
-        credentials: "include"
+        credentials: "include",
+        mode: 'no-cors',
       });
       dispatch(signOut());
     } catch (error) {

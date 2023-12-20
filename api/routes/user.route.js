@@ -9,6 +9,7 @@ router.get('/',(req,res)=>{
 })
 router.post('/update/:id',verifyToken,updateUser);
 router.delete('/delete/:id',verifyToken,deleteUser);
+console.log('in teh user route')
 
 
 

@@ -4,24 +4,40 @@ import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req, res, next) => {
+  console.log("in the signup controller ")
   const { username, email, password } = req.body;
+   
+  console.log("body ",req.body)
+
+  console.log("the password and email and username",username,email,password)
+  console.log('1')
+
+  const user = await User.findOne({ email });
+  console.log("the user",user)
+  if (user) return next(errorHandler(404, "User already exist"));
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
-
+   console.log('2')
   const newUser = new User({ username, email, password: hashedPassword });
-
+    console.log('3')
   try {
+    console.log('4')
     await newUser.save();
+    console.log('5')
     res.status(201).json({ message: "User created succssfully" });
   } catch (error) {
+    console.log("sing up errror ")
     next(error);
   }
 };
 
 export const signin = async (req, res, next) => {
+  console.log('signin controller ')
   const { email, password } = req.body;
 
   try {
+    
+  
     const user = await User.findOne({ email });
     if (!user) return next(errorHandler(404, "User not found"));
 
@@ -29,8 +45,9 @@ export const signin = async (req, res, next) => {
       return next(errorHandler(403, "Account blocked by admin"));
     }
 
+
     const validPassword = bcryptjs.compareSync(password, user.password);
-    if (!validPassword) return next(errorHandler(401, "Wrong credentials"));
+    if (!validPassword && password) return next(errorHandler(401, "Wrong credentials"));
 
     //jwt token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);

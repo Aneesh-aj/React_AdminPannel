@@ -7,6 +7,7 @@ import {
 } from "../controllers/auth.controller.js";
 
 const router = express.Router();
+console.log("in the auth route")
 
 router.post("/signup", signup);
 router.post("/signin", signin);

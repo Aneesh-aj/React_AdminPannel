@@ -8,10 +8,13 @@ import OAuth from "../components/OAuth";
 
 function SignIn() {
   const [formatData, setFormData] = useState({});
-
+   const [inputError,setInputError]=useState()
   const {loading,error} = useSelector((state) => state.user);
    const navigate = useNavigate();
     const dispatch = useDispatch();
+
+   console.log("loeding ",loading)
+   
 
   const handleChange = (e) => {
     setFormData({ ...formatData, [e.target.id]: e.target.value });
@@ -21,6 +24,17 @@ function SignIn() {
 
     try {
       dispatch(signInStart());
+      console.log("format data",formatData.email)
+      
+      if(formatData.email.trim() =='' && formatData.password.trim() =='' ){
+        setInputError('Enter Email and password')
+      }else if(formatData.email && formatData.password.trim()==''){
+        setInputError('Enter Password')
+      }else if (formatData.email.trim()=='' && formatData.password){
+        setInputError('Enter email')
+      }else{
+        setInputError('')
+      }
 
       const res = await fetch("http://localhost:3000/api/auth/signin", {
         method: "POST",
@@ -34,13 +48,13 @@ function SignIn() {
       const data = await res.json();
       if (data.success === false) {
         dispatch(signInFailure(data));
-
         return;
       }
       dispatch(signInSuccess(data));
       navigate("/");
 
     } catch (error) {
+      
       dispatch(signInFailure(error));
     }
   };
@@ -63,7 +77,7 @@ function SignIn() {
         </Link>
       </div>
       <p className="text-red-700">
-        {error ? error.message || "Something went wrong!" : ""}
+        {inputError != '' ? inputError : (error ? error.message : '')}
       </p>
     </div>
   );
