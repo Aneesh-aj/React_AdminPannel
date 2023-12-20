@@ -21,7 +21,6 @@ const userSlice = createSlice({
       state.error = false;
     },
     signInFailure: (state, action) => {
-      // state.currentUser = action.payload;
       state.loading = false;
       state.error = action.payload;
     },
