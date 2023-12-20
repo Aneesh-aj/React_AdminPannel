@@ -9,8 +9,8 @@ import {updateUserStart,updateUserSuccess,updateUserFailure,deleteUserStart,dele
 function Profile() {
    const fileRef = useRef(null);
   const [image,setImage] = useState(undefined);
-   const [imagePerc,setImagePerc] = useState(0);
-  const [imageError,setImageError] =   useState(false);4
+   const [imagePercent,setImagePercent] = useState(0);
+  const [imageError,setImageError] =   useState(false);
 
    const [formData,setFormData] = useState({});
    const [updateSuccess,setUpdateSuccess] = useState(false);
@@ -37,7 +37,7 @@ function Profile() {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setImagePerc(Math.round(progress));
+          setImagePercent(Math.round(progress));
         },
       (error) => {
         setImageError(true);
@@ -132,11 +132,11 @@ function Profile() {
             <span className="text-red-700">
               Error uploading image (file size must be less than 2MB)
             </span>
-          ) : imagePerc > 0 && imagePerc < 100 ? (
+          ) : imagePercent> 0 && imagePercent < 100 ? (
             <span className="text-slate-700">
-              {`Uploading : ${imagePerc}%`}
+              {`Uploading : ${imagePercent}%`}
             </span>
-          ) : imagePerc === 100 ? (
+          ) : imagePercent === 100 ? (
             <span className=" text-green-700">Image uploaded successfully</span>
           ) : (
             ""

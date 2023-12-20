@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 
 function AdminDash() {
-  const [users,setUsers] = useState([]);
-  const [searchTerm,setSearchTerm] = useState("");
+  const [users, setUsers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchUsers = async () => {
     try {
       const res = await fetch(`http://localhost:3000/api/admin/users`);
       const data = await res.json();
       setUsers(data);
+
     } catch (error) {
+
       console.log(error);
     }
   };
@@ -81,7 +83,7 @@ function AdminDash() {
       <div className="mb-4 flex items-center">
         <input type="text" placeholder="Search by username"
           value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
-      className="p-2 border border-gray-300 w-full"
+          className="p-2 border border-gray-300 w-full"
         />
         <button
           className="ml-2 p-2 bg-stone-900 text-white rounded"
@@ -103,48 +105,47 @@ function AdminDash() {
             </tr>
           </thead>
           <tbody>
-            {filteredUsers.map((user) => (
-              <tr key={user._id} className="align-top">
-                <td className="py-2 px-4 border-b text-center">
-                  {user.username}
-                </td>
-                <td className="py-2 px-4 border-b text-center">{user.email}</td>
-                <td className="py-2 px-4 border-b text-center">
-                  {user.role === "admin" ? "Admin" : "User"}
-                </td>
-                <td className="py-2 px-4 border-b text-center">
-                  {user.isActive ? "Yes" : "No"}
-                </td>
-                <td className="py-2 px-4 border-b space-x-2 text-center">
-                  <button
-                    className="text-sm text-red-500 hover:text-red-700"
-                    onClick={() => handleDelete(user._id)}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    className={`text-sm ${
-                      user.isActive ? "text-orange-500" : "text-green-500"
-                    } hover:${
-                      user.isActive ? "text-orange-700" : "text-green-700"
-                    }`}
-                    onClick={() => handleBlock(user._id)}
-                  >
-                    {user.isActive ? "Block" : "Unblock"}
-                  </button>
-                  <button
-                    className={`text-sm ${
-                      user.role === "admin" ? "text-gray-500" : "text-blue-500"
-                    } hover:${
-                      user.role === "admin" ? "text-gray-700" : "text-blue-700"
-                    }`}
-                    onClick={() => handleAdminToggle(user._id)}
-                  >
-                    {user.role === "admin" ? "Revoke Admin" : "Make Admin"}
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {filteredUsers
+              .filter(user => user.role !== 'admin')
+              .map(user => (
+                <tr key={user._id} className="align-top">
+                  <td className="py-2 px-4 border-b text-center">
+                    {user.username}
+                  </td>
+                  <td className="py-2 px-4 border-b text-center">{user.email}</td>
+                  <td className="py-2 px-4 border-b text-center">
+                    {user.role === "admin" ? "Admin" : "User"}
+                  </td>
+                  <td className="py-2 px-4 border-b text-center">
+                    {user.isActive ? "Yes" : "No"}
+                  </td>
+                  <td className="py-2 px-4 border-b space-x-2 text-center">
+                    <button
+                      className="text-sm text-red-500 hover:text-red-700"
+                      onClick={() => handleDelete(user._id)}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className={`text-sm ${user.isActive ? "text-orange-500" : "text-green-500"
+                        } hover:${user.isActive ? "text-orange-700" : "text-green-700"
+                        }`}
+                      onClick={() => handleBlock(user._id)}
+                    >
+                      {user.isActive ? "Block" : "Unblock"}
+                    </button>
+                    <button
+                      className={`text-sm ${user.role === "admin" ? "text-gray-500" : "text-blue-500"
+                        } hover:${user.role === "admin" ? "text-gray-700" : "text-blue-700"
+                        }`}
+                      onClick={() => handleAdminToggle(user._id)}
+                    >
+                      {user.role === "admin" ? "Revoke Admin" : "Make Admin"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+
           </tbody>
         </table>
       </div>
