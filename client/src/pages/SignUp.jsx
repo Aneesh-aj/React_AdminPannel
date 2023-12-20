@@ -101,8 +101,6 @@ export default function SignUp() {
           <span className="text-blue-500">Sign in</span>
         </Link>
       </div>
-   
-
     </div>
   );
 }
