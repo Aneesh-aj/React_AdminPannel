@@ -1,32 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
+import {getDownloadURL,getStorage,ref,uploadBytesResumable} from "firebase/storage";
 import { app } from "../firebase";
+
 import { useDispatch } from "react-redux";
-import {
-  updateUserStart,
-  updateUserSuccess,
-  updateUserFailure,
-  deleteUserStart,
-  deleteUserFailure,
-  deleteUserSuccess,
-  signOut,
-} from "../redux/user/userSlice.js";
+import {updateUserStart,updateUserSuccess,updateUserFailure,deleteUserStart,deleteUserFailure,deleteUserSuccess,signOut,} from "../redux/user/userSlice.js";
 
 function Profile() {
-  const fileRef = useRef(null);
-  const [image, setImage] = useState(undefined);
-  const [imagePerc, setImagePerc] = useState(0);
-  const [imageError, setImageError] = useState(false);
-  const [formData, setFormData] = useState({});
-  const [updateSuccess, setUpdateSuccess] = useState(false);
+   const fileRef = useRef(null);
+  const [image,setImage] = useState(undefined);
+   const [imagePerc,setImagePerc] = useState(0);
+  const [imageError,setImageError] =   useState(false);4
 
-  const { currentUser, loading, error } = useSelector((state) => state.user);
+   const [formData,setFormData] = useState({});
+   const [updateSuccess,setUpdateSuccess] = useState(false);
+
+  const {currentUser,loading,error} = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,9 +23,13 @@ function Profile() {
       handleFileUpload(image);
     }
   }, [image]);
+  
+
+
   const handleFileUpload = async (image) => {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + image.name;
+
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, image);
     uploadTask.on(
@@ -44,8 +37,8 @@ function Profile() {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setImagePerc(Math.round(progress));
-      },
+          setImagePerc(Math.round(progress));
+        },
       (error) => {
         setImageError(true);
       },
@@ -53,9 +46,9 @@ function Profile() {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setFormData({ ...formData, profilePicture: downloadURL });
         });
-      }
-    );
-  };
+        }
+      );
+    };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });

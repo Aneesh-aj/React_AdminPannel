@@ -3,13 +3,17 @@ import { useState } from "react";
 import OAuth from "../components/OAuth";
 
 function SignUp() {
-  const [formatData, setFormData] = useState({});
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const [formatData,setFormData] = useState({});
+  const [error,setError] =   useState(false);
+  const [loading,setLoading] = useState(false);
+
+    const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formatData, [e.target.id]: e.target.value });
   };
+
+  console.log('form data Data')
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -27,6 +31,7 @@ function SignUp() {
       if (!res.ok) {
         throw new Error("Network response was not ok");
       }
+      
       const data = await res.json();
       if (data.success === false) {
         setError(true);
@@ -44,30 +49,14 @@ function SignUp() {
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input
-          type="text"
-          placeholder="Username"
-          id="username"
-          className="bg-slate-100 p-3 rounded-lg"
-          onChange={handleChange}
+        <input type="text" placeholder="Username" id="username" className="bg-slate-100 p-3 rounded-lg" onChange={handleChange}/>
+        <input type="email" placeholder="Email"  id="email" className="bg-slate-100 p-3 rounded-lg" onChange={handleChange}
         />
-        <input
-          type="email"
-          placeholder="Email"
-          id="email"
-          className="bg-slate-100 p-3 rounded-lg"
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          id="password"
-          className="bg-slate-100 p-3 rounded-lg"
+        <input type="password" placeholder="Password" id="password" className="bg-slate-100 p-3 rounded-lg"
           onChange={handleChange}
         />
         <button
-          disabled={loading}
-          className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+          disabled={loading} className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
         >
           {loading ? "Loading..." : "Sign Up"}
         </button>

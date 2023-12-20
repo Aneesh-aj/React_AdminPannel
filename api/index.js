@@ -10,7 +10,7 @@ import adminRoutes from "./routes/admin.route.js"
 dotenv.config();
 
 mongoose
-  .connect(process.env.mongodb)
+  .connect(process.env.MONGO)
   .then(() => {
     console.log("Connected to MongoDB");
   })

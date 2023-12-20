@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 function AdminDash() {
-  const [users, setUsers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [users,setUsers] = useState([]);
+  const [searchTerm,setSearchTerm] = useState("");
 
   const fetchUsers = async () => {
     try {
@@ -68,11 +68,8 @@ function AdminDash() {
       );
     } catch (error) {
       console.error(error);
-      // Handle error, show a notification, etc.
     }
   };
-
-  // Filter users based on the search term
   const filteredUsers = users.filter((user) =>
     user.username.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -82,12 +79,9 @@ function AdminDash() {
       <h2 className="text-2xl font-bold mb-4 text-center">Admin Dashboard</h2>
 
       <div className="mb-4 flex items-center">
-        <input
-          type="text"
-          placeholder="Search by username"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="p-2 border border-gray-300 w-full"
+        <input type="text" placeholder="Search by username"
+          value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
+      className="p-2 border border-gray-300 w-full"
         />
         <button
           className="ml-2 p-2 bg-stone-900 text-white rounded"
