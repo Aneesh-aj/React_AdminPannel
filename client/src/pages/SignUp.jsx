@@ -9,7 +9,7 @@ export default function SignUp() {
   const [errors,setErrors] =   useState(false);
   const {error,loading} = useSelector((state)=>state.user)
   const dispatch = useDispatch()
-
+  
     const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formatData, [e.target.id]: e.target.value });
