@@ -7,6 +7,8 @@ import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminDash from "./pages/AdminDash";
 import PrivateAdminRoute from "./components/PrivateAdminRoute";
+import PrivateRoute2 from "./components/PrivateRoute2";
+import PrivateRoute3 from "./components/PrivateRoute3";
 
 function App() {
   return (
@@ -14,8 +16,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-in" element={< PrivateRoute3/>} />
+        <Route path="/sign-up" element={ <PrivateRoute2/>} />
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route element={<PrivateAdminRoute />}>

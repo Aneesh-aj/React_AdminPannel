@@ -1,16 +1,11 @@
 import express from "express";
-import {
-  blockUser,
-  deleteUser,
-  makeAdmin,
-  userList,
-} from "../controllers/admin.controller.js";
+import {blockUser,deleteUser,makeAdmin,userList,} from "../controllers/admin.controller.js";
 import { verifyToken, verifyAdmin } from "../utils/verifyUser.js";
 
 const router = express.Router();
 console.log('in the admin route')
 
-router.get("/users",  userList);
+router.get("/users", userList);
 router.post("/makeadmin/:id",  makeAdmin);
 router.post("/block/:id",  blockUser);
 router.delete("/delete/:id",  deleteUser);
