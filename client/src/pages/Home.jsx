@@ -17,7 +17,7 @@ function Home() {
         </p>
         <p className="text-gray-600 mb-6">
           Curious about our latest updates? Check out our blog or navigate
-          through the exciting features we offer.
+          through the exciting features we offer. explore more in this website
         </p>
       </div>
     </div>
