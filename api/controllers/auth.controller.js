@@ -4,7 +4,6 @@ import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req, res, next) => {
-  console.log("in the signup controller ")
   const { username, email, password } = req.body;
    
   console.log("body ",req.body)
@@ -23,7 +22,6 @@ export const signup = async (req, res, next) => {
     await newUser.save();
     res.status(201).json({ message: "User created succssfully" });
   } catch (error) {
-    console.log("sing up errror ")
     next(error);
   }
 };
