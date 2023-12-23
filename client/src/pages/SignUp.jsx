@@ -34,6 +34,8 @@ export default function SignUp() {
         dispatch(signInFailure());
         return;
       }
+
+      console.log("the form data",formatData)
   
       const res = await fetch("http://localhost:3000/api/auth/signup", {
         method: "POST",
@@ -41,6 +43,7 @@ export default function SignUp() {
           "Content-Type": "application/json",
         },
         credentials: "include",
+      
         body: JSON.stringify(formatData),
       });
   
@@ -63,8 +66,6 @@ export default function SignUp() {
     } catch (error) {
       dispatch(signInFailure(error));
       console.error("Error during form submission:", error);
-    } finally {
-      setLoading(false);
     }
   };
   
