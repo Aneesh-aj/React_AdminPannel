@@ -20,7 +20,6 @@ export const signup = async (req, res, next) => {
    console.log('2')
   const newUser = new User({ username, email, password: hashedPassword });
   try {
-    console.log('4')
     await newUser.save();
     console.log('5')
     res.status(201).json({ message: "User created succssfully" });
