@@ -24,11 +24,9 @@ export const signin = async (req, res, next) => {
   try {
     const user = await User.findOne({ email });
     if (!user) return next(errorHandler(404, "User not found"));
-
     if (!user.isActive) {
       return next(errorHandler(403, "Account blocked by admin"));
     }
-
     const validPassword = bcryptjs.compareSync(password, user.password);
     if (!validPassword && password) return next(errorHandler(401, "Wrong credentials"));
 
