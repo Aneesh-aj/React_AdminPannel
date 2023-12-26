@@ -40,7 +40,6 @@ export const blockUser = async (req, res) => {
     user.isActive = !user.isActive;
 
     const updatedUser = await user.save();
-
     res.status(200).json({ success: true, updatedUser });
   } catch (error) {
     console.error(error);
