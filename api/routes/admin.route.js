@@ -3,8 +3,6 @@ import {blockUser,deleteUser,makeAdmin,userList,} from "../controllers/admin.con
 import { verifyToken, verifyAdmin } from "../utils/verifyUser.js";
 
 const router = express.Router();
-console.log('in the admin route')
-
 router.get("/users", userList);
 router.post("/makeadmin/:id",  makeAdmin);
 router.post("/block/:id",  blockUser);

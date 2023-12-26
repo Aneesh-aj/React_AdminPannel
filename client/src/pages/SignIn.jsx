@@ -21,7 +21,7 @@ function SignIn() {
 
     try {
       dispatch(signInStart());
-     
+
       if (formatData.email.trim() == '' && formatData.password.trim() == '') {
         setInputError('Enter Email and password')
       } else if (formatData.email && formatData.password.trim() == '') {
