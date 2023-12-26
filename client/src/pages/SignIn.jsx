@@ -21,8 +21,7 @@ function SignIn() {
 
     try {
       dispatch(signInStart());
-      console.log("format data", formatData.email)
-
+     
       if (formatData.email.trim() == '' && formatData.password.trim() == '') {
         setInputError('Enter Email and password')
       } else if (formatData.email && formatData.password.trim() == '') {

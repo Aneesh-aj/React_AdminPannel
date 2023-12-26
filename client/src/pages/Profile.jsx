@@ -1,21 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import {getDownloadURL,getStorage,ref,uploadBytesResumable} from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../firebase";
 
 import { useDispatch } from "react-redux";
-import {updateUserStart,updateUserSuccess,updateUserFailure,deleteUserStart,deleteUserFailure,deleteUserSuccess,signOut,} from "../redux/user/userSlice.js";
+import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserFailure, deleteUserSuccess, signOut, } from "../redux/user/userSlice.js";
 
 function Profile() {
-   const fileRef = useRef(null);
-  const [image,setImage] = useState(undefined);
-   const [imagePercent,setImagePercent] = useState(0);
-  const [imageError,setImageError] =   useState(false);
-
-   const [formData,setFormData] = useState({});
-   const [updateSuccess,setUpdateSuccess] = useState(false);
-
-  const {currentUser,loading,error} = useSelector((state) => state.user);
+  const fileRef = useRef(null);
+  const [image, setImage] = useState(undefined);
+  const [imagePercent, setImagePercent] = useState(0);
+  const [imageError, setImageError] = useState(false);
+  const [formData, setFormData] = useState({});
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +21,7 @@ function Profile() {
       handleFileUpload(image);
     }
   }, [image]);
-  
+
 
 
   const handleFileUpload = async (image) => {
@@ -37,8 +35,8 @@ function Profile() {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setImagePercent(Math.round(progress));
-        },
+        setImagePercent(Math.round(progress));
+      },
       (error) => {
         setImageError(true);
       },
@@ -46,9 +44,9 @@ function Profile() {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setFormData({ ...formData, profilePicture: downloadURL });
         });
-        }
-      );
-    };
+      }
+    );
+  };
 
 
 
@@ -104,7 +102,7 @@ function Profile() {
 
   const handleSignOut = async () => {
     try {
-      await fetch("http://localhost:3000/api/auth/signout",{
+      await fetch("http://localhost:3000/api/auth/signout", {
         credentials: "include",
         mode: 'no-cors',
       });
@@ -135,7 +133,7 @@ function Profile() {
             <span className="text-red-700">
               Error uploading image (file size must be less than 2MB)
             </span>
-          ) : imagePercent> 0 && imagePercent < 100 ? (
+          ) : imagePercent > 0 && imagePercent < 100 ? (
             <span className="text-slate-700">
               {`Uploading : ${imagePercent}%`}
             </span>
