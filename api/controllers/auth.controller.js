@@ -8,7 +8,7 @@ export const signup = async (req, res, next) => {
   const user = await User.findOne({ email });
   if (user) return next(errorHandler(404, "User already exist"));
   const hashedPassword = bcryptjs.hashSync(password, 10);
-   console.log('2')
+  console.log('2')
   const newUser = new User({ username, email, password: hashedPassword });
   try {
     await newUser.save();
